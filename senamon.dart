@@ -1,12 +1,12 @@
-class Senamon {
-  String nombre;
-  String tipo;
-  int nivel;
+class TipoSenamon {
+    List tipoSenamon=[];
 
-  Senamon(this.nombre, this.tipo, this.nivel);
+    TipoSenamon(this.tipoSenamon);
 
-  @override
-  String toString() {
-    return 'Senamon(nombre: $nombre, tipo: $tipo, nivel: $nivel)';
-  }
+  
 }
+
+class Senamon extends TipoSenamon{
+    
+}
+

@@ -1,38 +1,26 @@
-import 'senamon.dart';       // Asegúrate de importar tus archivos de clases si están en archivos separados
+import 'dart:io';
 import 'entrenador.dart';
-import 'mundo_senamon.dart';
+void main(List<String> args) {
+  List<Entrenador> datosEntrenadores=[];
+    String nombreEntrenador;
+    String email;
+    DateTime fechaNacimiento;
+    int nivelXP=1;
+    int batallasGanadas=0;
 
-void main() {
-  // Crear algunos Senamones
-  Senamon pikachu = Senamon('Pikachu', 'Eléctrico', 5);
-  Senamon charmander = Senamon('Charmander', 'Fuego', 6);
-  Senamon squirtle = Senamon('Squirtle', 'Agua', 4);
+  print("Bienvenido al mundo SENAMON");
 
-  // Crear el mundo Senamon y agregar Senamones
-  MundoSenamon mundo = MundoSenamon();
-  mundo.agregarSenamon(pikachu);
-  mundo.agregarSenamon(charmander);
-  mundo.agregarSenamon(squirtle);
+    print("Ingrese el nombre del empleado:");
+    nombreEntrenador = stdin.readLineSync()!;
 
-  // Crear los entrenadores con la nueva información
-  Entrenador ash = Entrenador('Ash', 'ash@example.com', DateTime(1997, 5, 22), 10, 25);
-  Entrenador misty = Entrenador('Misty', 'misty@example.com', DateTime(1998, 4, 10), 8, 20);
+    print("Ingrese su email");
+    email = stdin.readLineSync()!;
 
-  // Los entrenadores atrapan Senamones
-  ash.atraparSenamon(pikachu);
-  ash.atraparSenamon(charmander);
+    print("Ingrese su fecha de nacimiento");
+    fechaNacimiento=DateTime()
 
-  misty.atraparSenamon(squirtle);
 
-  // Mostrar equipos y detalles de los entrenadores
-  ash.mostrarEquipo();
-  ash.mostrarDetalles();
-
-  misty.mostrarEquipo();
-  misty.mostrarDetalles();
-
-  // Reemplazar un Senamon en el equipo de Ash
-  Senamon bulbasaur = Senamon('Bulbasaur', 'Planta', 5);
-  ash.reemplazarSenamon(0, bulbasaur);
-  ash.mostrarEquipo();
+    datosEntrenadores.add(Entrenador(nombreEntrenador, email,nivelXP,));
+    print(datosEntrenadores);
+  
 }
