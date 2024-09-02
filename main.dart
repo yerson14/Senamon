@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'entrenador.dart';
 import 'senamon.dart';
 import 'batalla.dart';
