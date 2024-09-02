@@ -27,46 +27,40 @@ class Entrenador {
     if (experiencia >= puntosRequeridos) {
       if (esAtaque) {
         senamones[indice].nivelAtaque += cantidad;
+        print('El nivel de ataque de ${senamones[indice].nombre} ha aumentado a ${senamones[indice].nivelAtaque}.');
       } else {
         senamones[indice].puntosSalud += cantidad;
+        print('Los puntos de salud de ${senamones[indice].nombre} han aumentado a ${senamones[indice].puntosSalud}.');
       }
+
       experiencia -= puntosRequeridos;
     } else {
-      print('No tienes suficiente experiencia.');
+      print('No tienes suficiente experiencia para mejorar este Senamon.');
     }
-  }
-
-  void reemplazarSenamon(int indice, Senamon nuevoSenamon) {
-    if (indice < 0 || indice >= senamones.length) {
-      print('Índice de Senamon inválido.');
-      return;
-    }
-    senamones[indice] = nuevoSenamon;
-    print('Senamon reemplazado con éxito.');
-  }
-
-  void agregarExperiencia(int puntos) {
-    experiencia += puntos;
   }
 }
 
+// Función para obtener entrenadores predeterminados
 List<Entrenador> getEntrenadoresPredeterminados() {
+  List<Senamon> senamones1 = getSenamonesPredeterminados(1);
+  List<Senamon> senamones2 = getSenamonesPredeterminados(2);
+
   return [
     Entrenador(
-      nombre: 'María Paula',
-      email: 'maria.paula@example.com',
-      fechaNacimiento: DateTime(2007, 4, 23),
+      nombre: 'Ash',
+      email: 'ash@senamon.com',
+      fechaNacimiento: DateTime(1998, 5, 22),
       experiencia: 200,
-      batallasGanadas: 10,
-      senamones: getSenamonesPredeterminados(1),
+      batallasGanadas: 5,
+      senamones: senamones1,
     ),
     Entrenador(
-      nombre: 'Yerson Stiven',
-      email: 'yerson.stiven@example.com',
-      fechaNacimiento: DateTime(2006, 6, 12),
+      nombre: 'Misty',
+      email: 'misty@senamon.com',
+      fechaNacimiento: DateTime(2000, 6, 1),
       experiencia: 150,
-      batallasGanadas: 8,
-      senamones: getSenamonesPredeterminados(2),
+      batallasGanadas: 3,
+      senamones: senamones2,
     ),
   ];
 }

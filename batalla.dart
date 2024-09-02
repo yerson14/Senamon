@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'entrenador.dart';
-
+import 'senamon.dart';
 void iniciarBatalla(List<Entrenador> entrenadores) {
   Entrenador entrenador1 = entrenadores[0];
   Entrenador entrenador2 = entrenadores[1];
@@ -13,14 +13,37 @@ void iniciarBatalla(List<Entrenador> entrenadores) {
 
   print('¡${atacante.nombre} inicia la batalla!');
 
-  for (int i = 0; i < 5; i++) {
-    int danio = atacante.senamones[i].nivelAtaque - defensor.senamones[i].puntosSalud;
-    defensor.senamones[i].puntosSalud -= danio;
-    if (defensor.senamones[i].puntosSalud <= 0) {
-      print('${defensor.senamones[i].nombre} ha sido derrotado.');
-      defensor.senamones[i].puntosSalud = 0;
+  int senamonesDerrotadosAtacante = 0;
+  int senamonesDerrotadosDefensor = 0;
+
+  while (senamonesDerrotadosAtacante < 3 && senamonesDerrotadosDefensor < 3) {
+    int i = Random().nextInt(5);
+
+    Senamon senamonAtacante = atacante.senamones[i];
+    Senamon senamonDefensor = defensor.senamones[i];
+
+    print('${atacante.nombre} ataca con ${senamonAtacante.nombre}!');
+    int danio = senamonAtacante.nivelAtaque;
+    senamonDefensor.puntosSalud -= danio;
+
+    if (senamonDefensor.puntosSalud <= 0) {
+      print('${senamonDefensor.nombre} ha sido derrotado.');
+      senamonesDerrotadosDefensor++;
     } else {
-      print('${defensor.senamones[i].nombre} tiene ${defensor.senamones[i].puntosSalud} puntos de salud restantes.');
+      print('${senamonDefensor.nombre} tiene ${senamonDefensor.puntosSalud} puntos de salud restantes.');
+    }
+
+    if (senamonesDerrotadosDefensor < 3) {
+      print('${defensor.nombre} contraataca con ${senamonDefensor.nombre}!');
+      danio = senamonDefensor.nivelAtaque;
+      senamonAtacante.puntosSalud -= danio;
+
+      if (senamonAtacante.puntosSalud <= 0) {
+        print('${senamonAtacante.nombre} ha sido derrotado.');
+        senamonesDerrotadosAtacante++;
+      } else {
+        print('${senamonAtacante.nombre} tiene ${senamonAtacante.puntosSalud} puntos de salud restantes.');
+      }
     }
 
     // Cambiar de turno
@@ -29,14 +52,12 @@ void iniciarBatalla(List<Entrenador> entrenadores) {
     defensor = temp;
   }
 
-  if (entrenador1.senamones.every((senamon) => senamon.puntosSalud <= 0)) {
-    entrenador2.batallasGanadas += 1;
-    print('${entrenador2.nombre} ha ganado la batalla.');
-  } else if (entrenador2.senamones.every((senamon) => senamon.puntosSalud <= 0)) {
-    entrenador1.batallasGanadas += 1;
-    print('${entrenador1.nombre} ha ganado la batalla.');
+  if (senamonesDerrotadosAtacante >= 3) {
+    defensor.batallasGanadas += 1;
+    print('${defensor.nombre} ha ganado la batalla.');
   } else {
-    print('La batalla ha terminado en empate.');
+    atacante.batallasGanadas += 1;
+    print('${atacante.nombre} ha ganado la batalla.');
   }
 }
 
