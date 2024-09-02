@@ -1,62 +1,128 @@
 import 'dart:io';
+
 import 'entrenador.dart';
 import 'senamon.dart';
 import 'batalla.dart';
 
+// Función principal
 void main() {
   List<Entrenador> entrenadores = [];
-  List<Senamon> senamones = getSenamonesPredeterminados();
 
   print('Bienvenido al mundo Senamon');
   print("*" * 30);
 
-  // Crear o cargar entrenadores
   for (int i = 0; i < 2; i++) {
     print('Entrenador ${i + 1}:');
-    print('¿Ya tienes un entrenador? (sí/no)');
-    String? tieneEntrenador = stdin.readLineSync()?.toLowerCase();
+    print('¿Ya tienes un entrenador? (si/no)');
+    String? tieneEntrenador = stdin.readLineSync()?.trim().toLowerCase();
 
     if (tieneEntrenador == 'no') {
-      // Crear un nuevo entrenador
       crearEntrenador(entrenadores);
-    } else if (tieneEntrenador == 'sí') {
-      // Armar el equipo del entrenador con Senamones disponibles
-      print('Por favor, arma tu equipo de Senamones.');
-      armarEquipo(entrenadores, senamones);
+    } else if (tieneEntrenador == 'si') {
+      entrenadores = getEntrenadoresPredeterminados();
+
+      print('Entrenadores guardados:');
+      for (int j = 0; j < entrenadores.length; j++) {
+        print('Entrenador ${j + 1}: ${entrenadores[j].nombre}');
+        print('Email: ${entrenadores[j].email}');
+        print('Fecha de Nacimiento: ${entrenadores[j].fechaNacimiento}');
+        print('Experiencia: ${entrenadores[j].experiencia}');
+        print('Batallas Ganadas: ${entrenadores[j].batallasGanadas}');
+        print("*" * 30);
+      }
+
+      break;
     } else {
       print('Opción no válida, por favor, responde "sí" o "no".');
-      i--; // Repetir el ciclo para el mismo entrenador
+      i--; // Decrementa el contador para repetir la pregunta
     }
-
-    print("*" * 30);
   }
 
-  // Selección de Senamones para iniciar la batalla
-  seleccionarSenamonInicial(entrenadores);
+  if (entrenadores.isNotEmpty) {
+    seleccionarSenamonInicial(entrenadores);
 
-  // Menú de opciones para iniciar batalla o mostrar estadísticas
-  while (true) {
-    print('\n1. Iniciar batalla');
-    print('2. Mostrar estadísticas');
-    print('3. Salir');
-    print('Selecciona una opción:');
-    
-    String? opcion = stdin.readLineSync();
-    
-    switch (opcion) {
-      case '1':
-        iniciarBatalla(entrenadores, senamones);
-        break;
-      case '2':
-        mostrarEstadisticas(entrenadores);
-        break;
-      case '3':
-        exit(0);
-      default:
-        print('Opción no válida.');
+    while (true) {
+      print('\n1. Iniciar batalla');
+      print('2. Entrenar Senamon');
+      print('3. Mostrar estadísticas');
+      print('4. Reemplazar Senamon');
+      print('5. Salir');
+      print('Selecciona una opción:');
+
+      String? opcion = stdin.readLineSync();
+
+      switch (opcion) {
+        case '1':
+          iniciarBatalla(entrenadores);
+          break;
+        case '2':
+          entrenarSenamones(entrenadores);
+          break;
+        case '3':
+          mostrarEstadisticas(entrenadores);
+          break;
+        case '4':
+          print('Selecciona el entrenador (1 o 2):');
+          int entrenadorIndex = int.tryParse(stdin.readLineSync()!)! - 1;
+          if (entrenadorIndex < 0 || entrenadorIndex >= entrenadores.length) {
+            print('Entrenador inválido.');
+            break;
+          }
+
+          print('Selecciona la posición del Senamon a reemplazar (0-4):');
+          int senamonIndex = int.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese el nombre del nuevo Senamon:');
+          String? nombre = stdin.readLineSync();
+
+          print('Ingrese el nivel del nuevo Senamon:');
+          int nivel = int.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese el tipo del nuevo Senamon:');
+          String? tipo = stdin.readLineSync();
+
+          print('Ingrese el peso del nuevo Senamon:');
+          double peso = double.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese los puntos de salud del nuevo Senamon:');
+          int puntosSalud = int.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese el nivel de ataque del nuevo Senamon:');
+          int nivelAtaque = int.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese la fase del nuevo Senamon:');
+          String? fase = stdin.readLineSync();
+
+          print('Ingrese el nivel de energía del nuevo Senamon:');
+          int nivelEnergia = int.tryParse(stdin.readLineSync()!)!;
+
+          print('Ingrese la descripción del nuevo Senamon:');
+          String? descripcion = stdin.readLineSync();
+
+          Senamon nuevoSenamon = Senamon(
+            nombre: nombre!,
+            nivel: nivel,
+            tipo: tipo!,
+            peso: peso,
+            puntosSalud: puntosSalud,
+            nivelAtaque: nivelAtaque,
+            fase: fase!,
+            nivelEnergia: nivelEnergia,
+            descripcion: descripcion!,
+          );
+
+          reemplazarSenamon(entrenadores[entrenadorIndex], senamonIndex, nuevoSenamon);
+          break;
+        case '5':
+          exit(0);
+        default:
+          print('Opción no válida.');
+      }
+
+      print("*" * 30);
     }
-
-    print("*" * 30);
+  } else {
+    print('No se han cargado entrenadores.');
   }
 }
 
@@ -78,12 +144,11 @@ void crearEntrenador(List<Entrenador> entrenadores) {
     }
   }
 
-  // Inicializar el equipo con Senamones vacíos
   List<Senamon> senamones = List.filled(5, Senamon(
     nombre: '', nivel: 0, tipo: '', peso: 0.0, puntosSalud: 0, nivelAtaque: 0,
     fase: '', nivelEnergia: 0, descripcion: '',
   ));
-  
+
   entrenadores.add(Entrenador(
     nombre: nombre!,
     email: email!,
@@ -97,137 +162,61 @@ void crearEntrenador(List<Entrenador> entrenadores) {
   print("*" * 30);
 }
 
-// Función para armar el equipo del entrenador con Senamones disponibles
-void armarEquipo(List<Entrenador> entrenadores, List<Senamon> senamones) {
-  Entrenador entrenador = entrenadores.last;
-
-  for (int i = 0; i < 5; i++) {
-    print('Selecciona el tipo de Senamon para la posición ${i + 1}:');
-    mostrarTiposSenamones(senamones);
-    
-    String? tipo = stdin.readLineSync()?.toLowerCase();
-    List<Senamon> senamonesTipo = senamones.where((s) => s.tipo.toLowerCase() == tipo).toList();
-
-    if (senamonesTipo.isEmpty) {
-      print('Tipo inválido o no hay Senamones de este tipo. Intenta de nuevo.');
-      i--; // Repetir la selección para la misma posición
-      continue;
-    }
-
-    print('Elige un Senamon del tipo $tipo para la posición ${i + 1}:');
-    mostrarSenamonesDisponibles(senamonesTipo);
-
-    String? eleccion = stdin.readLineSync();
-    int indice = int.tryParse(eleccion!) ?? -1;
-
-    if (indice >= 0 && indice < senamonesTipo.length) {
-      entrenador.senamones[i] = senamonesTipo[indice];
-      print('Senamon ${senamonesTipo[indice].nombre} añadido a la posición ${i + 1}.');
-    } else {
-      print('Elección inválida.');
-      i--; // Repetir la selección para la misma posición
-    }
-
-    print("*" * 30);
-  }
-}
-
-// Función para mostrar los tipos de Senamones disponibles
-void mostrarTiposSenamones(List<Senamon> senamones) {
-  Set<String> tipos = senamones.map((s) => s.tipo).toSet();
-  for (String tipo in tipos) {
-    print(tipo);
-  }
-  print("*" * 30);
-}
-
-// Función para mostrar los Senamones disponibles de un tipo específico
-void mostrarSenamonesDisponibles(List<Senamon> senamones) {
-  for (int i = 0; i < senamones.length; i++) {
-    print('$i: ${senamones[i].nombre} (${senamones[i].tipo})');
-  }
-  print("*" * 30);
-}
-
-// Función para seleccionar el Senamon inicial para la batalla
+// Función para que los entrenadores seleccionen su Senamon inicial
 void seleccionarSenamonInicial(List<Entrenador> entrenadores) {
-  for (int i = 0; i < entrenadores.length; i++) {
-    print('Entrenador ${i + 1}, selecciona tu Senamon inicial para la batalla:');
-    mostrarSenamonesDisponibles(entrenadores[i].senamones);
+  for (Entrenador entrenador in entrenadores) {
+    print('Entrenador ${entrenador.nombre}, selecciona tu Senamon inicial:');
+    for (int i = 0; i < entrenador.senamones.length; i++) {
+      print('$i: ${entrenador.senamones[i].nombre}');
+    }
 
     String? eleccion = stdin.readLineSync();
     int indice = int.tryParse(eleccion!) ?? -1;
 
-    if (indice >= 0 && indice < entrenadores[i].senamones.length) {
-      entrenadores[i].senamones[indice] = entrenadores[i].senamones[indice];
-      print('Senamon inicial seleccionado: ${entrenadores[i].senamones[indice].nombre}');
+    if (indice >= 0 && indice < entrenador.senamones.length) {
+      print('${entrenador.nombre} ha seleccionado a ${entrenador.senamones[indice].nombre} como Senamon inicial.');
     } else {
-      print('Elección inválida. Selecciona de nuevo.');
-      i--; // Repetir la selección para el mismo entrenador
+      print('Selección inválida.');
     }
 
     print("*" * 30);
   }
 }
 
-// Función para iniciar la batalla
-void iniciarBatalla(List<Entrenador> entrenadores, List<Senamon> senamones) {
-  print('¡La batalla está por comenzar!');
-  print('*' * 30);
-  print('1. Atacar');
-  print('2. Huir');
-  print('3. Mostrar estado de los Senamones');
-  print('Selecciona una opción:');
-  
-  String? opcion = stdin.readLineSync();
-  
-  switch (opcion) {
-    case '1':
-      print('Elige el Senamon atacante:');
-      seleccionarSenamonParaAccion(entrenadores, senamones, 'atacar');
-      break;
-    case '2':
-      print('Has decidido huir de la batalla.');
-      break;
-    case '3':
-      mostrarEstadoSenamones(entrenadores);
-      break;
-    default:
-      print('Opción no válida.');
-  }
-
-  print('*' * 30);
-}
-
-// Función para seleccionar el Senamon para una acción específica (ataque, huir, etc.)
-void seleccionarSenamonParaAccion(List<Entrenador> entrenadores, List<Senamon> senamones, String accion) {
-  for (int i = 0; i < entrenadores.length; i++) {
-    print('Entrenador ${i + 1}, elige el Senamon para $accion:');
-    mostrarSenamonesDisponibles(entrenadores[i].senamones);
+// Función para entrenar los Senamones
+void entrenarSenamones(List<Entrenador> entrenadores) {
+  for (Entrenador entrenador in entrenadores) {
+    print('Entrenador ${entrenador.nombre}, elige un Senamon para entrenar:');
+    for (int i = 0; i < entrenador.senamones.length; i++) {
+      print('$i: ${entrenador.senamones[i].nombre}');
+    }
 
     String? eleccion = stdin.readLineSync();
     int indice = int.tryParse(eleccion!) ?? -1;
 
-    if (indice >= 0 && indice < entrenadores[i].senamones.length) {
-      Senamon senamonSeleccionado = entrenadores[i].senamones[indice];
-      print('Senamon ${senamonSeleccionado.nombre} seleccionado para $accion.');
-      // Aquí se debería llamar al método correspondiente para realizar la acción
-    } else {
-      print('Elección inválida.');
-      i--; // Repetir la selección para el mismo entrenador
-    }
+    if (indice >= 0 && indice < entrenador.senamones.length) {
+      print('¿Qué deseas mejorar? (1. Ataque, 2. Salud)');
+      String? mejora = stdin.readLineSync();
 
-    print('*' * 30);
+      print('¿Cuántos puntos quieres añadir?');
+      String? puntos = stdin.readLineSync();
+      int cantidad = int.tryParse(puntos!) ?? 0;
+
+      bool esAtaque = mejora == '1';
+      entrenador.entrenarSenamon(indice, cantidad, esAtaque);
+    } else {
+      print('Selección inválida.');
+    }
   }
 }
 
-// Función para mostrar el estado de los Senamones
-void mostrarEstadoSenamones(List<Entrenador> entrenadores) {
-  for (int i = 0; i < entrenadores.length; i++) {
-    print('Estado del equipo del Entrenador ${i + 1}:');
-    for (Senamon senamon in entrenadores[i].senamones) {
-      print('Nombre: ${senamon.nombre}, Salud: ${senamon.puntosSalud}, Ataque: ${senamon.nivelAtaque}');
-    }
-    print("*" * 30);
+// Función para reemplazar un Senamon en la lista de un entrenador
+void reemplazarSenamon(Entrenador entrenador, int indice, Senamon nuevoSenamon) {
+  if (indice < 0 || indice >= entrenador.senamones.length) {
+    print('Índice inválido.');
+    return;
   }
+
+  entrenador.senamones[indice] = nuevoSenamon;
+  print('Senamon en la posición $indice reemplazado con ${nuevoSenamon.nombre}.');
 }
