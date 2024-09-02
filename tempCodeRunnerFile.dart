@@ -17,12 +17,15 @@ class Entrenador {
     required this.senamones,
   });
 
+  // Método para entrenar un Senamon, incrementando ataque o salud
   void entrenarSenamon(int indice, int cantidad, bool esAtaque) {
+    // Verificar que el índice sea válido
     if (indice < 0 || indice >= senamones.length) {
       print('Índice de Senamon inválido.');
       return;
     }
 
+    // Validar cantidad de experiencia suficiente
     int puntosRequeridos = (cantidad / 20).toInt();
     if (experiencia >= puntosRequeridos) {
       if (esAtaque) {
@@ -35,38 +38,26 @@ class Entrenador {
       print('No tienes suficiente experiencia.');
     }
   }
-
-  void reemplazarSenamon(int indice, Senamon nuevoSenamon) {
-    if (indice < 0 || indice >= senamones.length) {
-      print('Índice de Senamon inválido.');
-      return;
-    }
-    senamones[indice] = nuevoSenamon;
-    print('Senamon reemplazado con éxito.');
-  }
-
-  void agregarExperiencia(int puntos) {
-    experiencia += puntos;
-  }
 }
 
-List<Entrenador> getEntrenadoresPredeterminados() {
+// Función para obtener entrenadores predefinidos
+List<Entrenador> getEntrenadoresPredeterminados(List<Senamon> senamones) {
   return [
     Entrenador(
-      nombre: 'María Paula',
-      email: 'maria.paula@example.com',
-      fechaNacimiento: DateTime(2007, 4, 23),
-      experiencia: 200,
+      nombre: 'Maria Paula Melo Solano',
+      email: 'mariapaulamelosolano@gmail.com',
+      fechaNacimiento: DateTime(2007, 4, 4),
+      experiencia: 100,
       batallasGanadas: 10,
-      senamones: getSenamonesPredeterminados(1),
-    ),
+      senamones: senamones.sublist(0, 2), 
+    ),                                                                                                                           
     Entrenador(
-      nombre: 'Yerson Stiven',
-      email: 'yerson.stiven@example.com',
-      fechaNacimiento: DateTime(2006, 6, 12),
-      experiencia: 150,
+      nombre: 'Yerson Stiven Herrera Obando',
+      email: 'YersonNegro@gmail.com',
+      fechaNacimiento: DateTime(2006, 5, 12),
+      experiencia: 90,
       batallasGanadas: 8,
-      senamones: getSenamonesPredeterminados(2),
-    ),
+      senamones: senamones.sublist(2, 4), 
+    ),                                                                                                           
   ];
 }
