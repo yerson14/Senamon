@@ -47,16 +47,16 @@ List<Entrenador> getEntrenadoresPredeterminados() {
 
   return [
     Entrenador(
-      nombre: 'Ash',
-      email: 'ash@senamon.com',
+      nombre: 'Yerson',
+      email: 'yersonnegro@gmail.com',
       fechaNacimiento: DateTime(1998, 5, 22),
       experiencia: 200,
       batallasGanadas: 5,
       senamones: senamones1,
     ),
     Entrenador(
-      nombre: 'Misty',
-      email: 'misty@senamon.com',
+      nombre: 'Maria melo',
+      email: 'mariamelo@gmail.com',
       fechaNacimiento: DateTime(2000, 6, 1),
       experiencia: 150,
       batallasGanadas: 3,
