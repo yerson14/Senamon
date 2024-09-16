@@ -1,4 +1,5 @@
 import 'senamon.dart';
+import 'dart:math';
 
 class Entrenador {
   String nombre;
@@ -63,4 +64,6 @@ List<Entrenador> getEntrenadoresPredeterminados() {
       senamones: senamones2,
     ),
   ];
+
+  
 }
