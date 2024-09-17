@@ -28,10 +28,12 @@ class Entrenador {
     if (experiencia >= puntosRequeridos) {
       if (esAtaque) {
         senamones[indice].nivelAtaque += cantidad;
-        print('El nivel de ataque de ${senamones[indice].nombre} ha aumentado a ${senamones[indice].nivelAtaque}.');
+        print(
+            'El nivel de ataque de ${senamones[indice].nombre} ha aumentado a ${senamones[indice].nivelAtaque}.');
       } else {
         senamones[indice].puntosSalud += cantidad;
-        print('Los puntos de salud de ${senamones[indice].nombre} han aumentado a ${senamones[indice].puntosSalud}.');
+        print(
+            'Los puntos de salud de ${senamones[indice].nombre} han aumentado a ${senamones[indice].puntosSalud}.');
       }
 
       experiencia -= puntosRequeridos;
@@ -64,6 +66,4 @@ List<Entrenador> getEntrenadoresPredeterminados() {
       senamones: senamones2,
     ),
   ];
-
-  
 }
