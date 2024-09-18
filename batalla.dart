@@ -92,8 +92,8 @@ void iniciarBatalla(List<Entrenador> entrenadores) {
 
     if (opcion == '1') {
       // Realizar el ataque
-      int danio = senamonAtacante.nivelAtaque;
-      senamonDefensor.puntosSalud -= danio;
+      int danio = senamonAtacante.nivelAtaque; // Usar getter
+      senamonDefensor.puntosSalud -= danio; // Usar setter
       print('${senamonAtacante.nombre} atacó a ${senamonDefensor.nombre} e infligió $danio de daño.');
       if (senamonDefensor.puntosSalud <= 0) {
         print('${senamonDefensor.nombre} ha sido derrotado.');
@@ -123,6 +123,7 @@ void iniciarBatalla(List<Entrenador> entrenadores) {
     print('${atacante.nombre} ha ganado la batalla.');
   }
 }
+
 
 Senamon obtenerSenamonActivo(Entrenador entrenador) {
   return entrenador.senamones.firstWhere((s) => s.puntosSalud > 0);

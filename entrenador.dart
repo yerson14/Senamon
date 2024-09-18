@@ -1,5 +1,4 @@
 import 'senamon.dart';
-import 'dart:math';
 
 class Entrenador {
   String nombre;
@@ -28,12 +27,10 @@ class Entrenador {
     if (experiencia >= puntosRequeridos) {
       if (esAtaque) {
         senamones[indice].nivelAtaque += cantidad;
-        print(
-            'El nivel de ataque de ${senamones[indice].nombre} ha aumentado a ${senamones[indice].nivelAtaque}.');
+        print('El nivel de ataque de ${senamones[indice].nombre} ha aumentado a ${senamones[indice].nivelAtaque}.');
       } else {
         senamones[indice].puntosSalud += cantidad;
-        print(
-            'Los puntos de salud de ${senamones[indice].nombre} han aumentado a ${senamones[indice].puntosSalud}.');
+        print('Los puntos de salud de ${senamones[indice].nombre} han aumentado a ${senamones[indice].puntosSalud}.');
       }
 
       experiencia -= puntosRequeridos;
@@ -52,18 +49,50 @@ List<Entrenador> getEntrenadoresPredeterminados() {
     Entrenador(
       nombre: 'Yerson',
       email: 'yersonnegro@gmail.com',
-      fechaNacimiento: DateTime(1998, 5, 22),
+      fechaNacimiento: DateTime(2006, 5, 22),
       experiencia: 200,
       batallasGanadas: 5,
       senamones: senamones1,
     ),
     Entrenador(
-      nombre: 'Maria melo',
+      nombre: 'Maria Melo',
       email: 'mariamelo@gmail.com',
       fechaNacimiento: DateTime(2000, 6, 1),
+      experiencia: 100,
+      batallasGanadas: 5,
+      senamones: senamones2,
+    ),
+    Entrenador(
+      nombre: 'David Cachetes',
+      email: 'David@gmail.com',
+      fechaNacimiento: DateTime(2003, 9, 1),
+      experiencia: 150,
+      batallasGanadas: 3,
+      senamones: senamones1,
+    ),
+    Entrenador(
+      nombre: 'Mariana perez',
+      email: 'mariana@gmail.com',
+      fechaNacimiento: DateTime(2010, 3, 20),
       experiencia: 150,
       batallasGanadas: 3,
       senamones: senamones2,
     ),
+    Entrenador(
+      nombre: 'Miguel pepito',
+      email: 'miguelp@gmail.com',
+      fechaNacimiento: DateTime(2007, 5, 10),
+      experiencia: 170,
+      batallasGanadas: 6,
+      senamones: senamones1,
+    ),
+    Entrenador(
+      nombre: 'Juan Lopez',
+      email: 'Juanp@gmail.com',
+      fechaNacimiento: DateTime(2005, 5, 14),
+      experiencia: 90,
+      batallasGanadas: 8,
+      senamones: senamones2,
+    )
   ];
 }

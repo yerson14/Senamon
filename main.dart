@@ -8,32 +8,32 @@ void main() {
   print('Bienvenido al mundo Senamon');
   print("*" * 30);
 
+  List<Entrenador> entrenadoresPredeterminados = getEntrenadoresPredeterminados();
+
   for (int i = 0; i < 2; i++) {
     print('Entrenador ${i + 1}:');
-    print('¿Ya tienes un entrenador? (si/no)');
-    String? tieneEntrenador = stdin.readLineSync()?.trim().toLowerCase();
-    if (tieneEntrenador == 'no') {
-      crearEntrenador(entrenadores);
-    } else if (tieneEntrenador == 'si') {
-      entrenadores = getEntrenadoresPredeterminados();
-      print('Entrenadores guardados:');
-      for (int j = 0; j < entrenadores.length; j++) {
-        print('Entrenador ${j + 1}: ${entrenadores[j].nombre}');
-        print('Email: ${entrenadores[j].email}');
-        print('Fecha de Nacimiento: ${entrenadores[j].fechaNacimiento}');
-        print('Experiencia: ${entrenadores[j].experiencia}');
-        print('Batallas Ganadas: ${entrenadores[j].batallasGanadas}');
-        print("*" * 30);
-      }
-      break;
-    } else {
-      print('Opción no válida, por favor, responde "sí" o "no".');
-      i--; // Decrementa el contador para repetir la pregunta
+    print('Selecciona un entrenador predeterminado:');
+    for (int j = 0; j < entrenadoresPredeterminados.length; j++) {
+      print('${j + 1}. ${entrenadoresPredeterminados[j].nombre}');
     }
+    
+    int seleccion = -1;
+    while (seleccion < 0 || seleccion >= entrenadoresPredeterminados.length) {
+      print('Ingresa el número del entrenador que deseas seleccionar:');
+      seleccion = int.parse(stdin.readLineSync()!) - 1;
+      if (seleccion < 0 || seleccion >= entrenadoresPredeterminados.length) {
+        print('Selección inválida. Por favor, elige un número válido.');
+      }
+    }
+    
+    entrenadores.add(entrenadoresPredeterminados[seleccion]);
+    entrenadoresPredeterminados.removeAt(seleccion);
+    
+    print('Has seleccionado a ${entrenadores[i].nombre}');
+    print("*" * 30);
   }
 
   if (entrenadores.isNotEmpty) {
-    seleccionarSenamonInicial(entrenadores);
     while (true) {
       print('\n1. Iniciar batalla');
       print('2. Entrenar Senamon');
