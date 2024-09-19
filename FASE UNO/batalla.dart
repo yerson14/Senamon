@@ -51,7 +51,7 @@ void seleccionarSenamones(Entrenador entrenador, List<Senamon> senamonesDisponib
 }
 
 void mostrarSenamonesDisponibles(List<Senamon> senamones) {
-  print('\nLista de Senamones disponibles:');
+  print('Lista de Senamones disponibles:');
   for (int i = 0; i < senamones.length; i++) {
     print('$i: ${senamones[i].nombre} (Tipo: ${senamones[i].tipo})');
   }
@@ -59,7 +59,7 @@ void mostrarSenamonesDisponibles(List<Senamon> senamones) {
 
 
 void mostrarSenamonesPredeterminados(List<Senamon> senamones) {
-  print('\nLista de Senamones disponibles:');
+  print('Lista de Senamones disponibles:');
   for (int i = 0; i < senamones.length; i++) {
     print('$i: ${senamones[i].nombre} (Tipo: ${senamones[i].tipo})');
   }
@@ -78,7 +78,7 @@ void iniciarBatalla(List<Entrenador> entrenadores) {
   int senamonesDerrotadosDefensor = 0;
 
   while (senamonesDerrotadosAtacante < 3 && senamonesDerrotadosDefensor < 3) {
-    print('\nTurno de ${atacante.nombre}');
+    print('Turno de ${atacante.nombre}');
     
     // Mostrar salud de los Senamones
     Senamon senamonAtacante = obtenerSenamonActivo(atacante);

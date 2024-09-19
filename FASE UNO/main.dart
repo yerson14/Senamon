@@ -82,7 +82,7 @@ void crearEntrenador(List<Entrenador> entrenadores) {
       print('Fecha inválida. Inténtalo de nuevo (formato: yyyy-mm-dd):');
     }
   }
-  
+
   // Asignar Senamones predeterminados al nuevo entrenador
   List<Senamon> senamones =
       getSenamonesPredeterminados(entrenadores.length + 1);
@@ -194,4 +194,52 @@ void reemplazarSenamon(
   entrenador.senamones[indice] = nuevoSenamon;
   print(
       'Senamon en la posición $indice reemplazado con ${nuevoSenamon.nombre}.');
+}
+
+void crearSenamon(Entrenador entrenador){
+  print("Ingrese el nombre del senamon");
+  String nombre = stdin.readLineSync()!;
+  print("Ingrese el peso del senamon");
+  double peso = double.parse(stdin.readLineSync()!);
+  print("Ingrese el tipo de Senamon");
+  List<String> tipos = ["fuego", "agua", "hierba", "volador", "eléctrico"];
+  for (var i = 0; i < tipos.length; i++) {
+    print("${i + 1}. ${tipos[i]}");
+  }
+  print("Ingrese el número del tipo de senamon que desea seleccionar");
+  int posicionTipo = int.parse(stdin.readLineSync()!);
+  do {
+    if (posicionTipo <= 0 || posicionTipo > tipos.length) {
+      print("Ingrese un número que esté dentro de la lista");
+      posicionTipo = int.parse(stdin.readLineSync()!);
+    }
+  } while (posicionTipo <= 0 || posicionTipo > tipos.length);
+  print("Ingrese la vida que tendrá el senamon");
+  int salud = int.parse(stdin.readLineSync()!);
+  do {
+    if (salud < 0 || salud > 1000) {
+      print("Ingrese un número entre 1 y 1000");
+      salud = int.parse(stdin.readLineSync()!);
+    }
+  } while (salud < 0 || salud > 1000);
+  print("Ingrese el daño que tendrá el senamon");
+  int ataque = int.parse(stdin.readLineSync()!);
+  do {
+    if (ataque < 0 || ataque > 1000) {
+      print("Ingrese un número entre 1 y 1000");
+      ataque = int.parse(stdin.readLineSync()!);
+    }
+  } while (ataque < 0 || ataque > 1000);
+  print("Ingrese el nivel del senamon");
+  int nivel = int.parse(stdin.readLineSync()!);
+  print("Ingrese la fase en la que está el Senamon");
+  String fase = stdin.readLineSync()!;
+  print("Ingrese el nivel de energía que tiene el Senamon");
+  int energia = int.parse(stdin.readLineSync()!);
+  do {
+    if (energia < 0 || energia > 100) {
+      print("Ingrese un número entre 1 y 100");
+      energia = int.parse(stdin.readLineSync()!);
+    }
+  } while (energia < 0 || energia > 100);
 }
