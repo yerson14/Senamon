@@ -82,7 +82,7 @@ void crearEntrenador(List<Entrenador> entrenadores) {
       print('Fecha inválida. Inténtalo de nuevo (formato: yyyy-mm-dd):');
     }
   }
-
+  
   // Asignar Senamones predeterminados al nuevo entrenador
   List<Senamon> senamones =
       getSenamonesPredeterminados(entrenadores.length + 1);
