@@ -3,6 +3,7 @@ import 'entrenador.dart';
 import 'senamon.dart';
 import 'batalla.dart';
 
+
 void main() {
   List<Entrenador> entrenadores = [];
   print('Bienvenido al mundo Senamon');
